@@ -2,6 +2,17 @@
 
 <h1>Blog posts</h1>
 
+<div>
+    <?php echo $this->Form->create('Post', array('url'=>'index')); ?>
+    <fieldset>
+        <legend>検索</legend>
+        <?php echo $this->Form->input('title', array('label' => 'タイトル', 'empty' => true)); ?>
+    </fieldset>
+    <?php echo $this->Form->end('検索'); ?>
+</div>
+
+
+
 <?php echo $this->Html->link(
     'Add Post',
     array('controller' => 'posts', 'action' => 'add')

@@ -3,10 +3,20 @@
 
 class PostsController extends AppController {
     public $helpers = array('Html', 'Form', 'Flash');
-    public $components = array('Flash');
+    public $components = array('Flash', 'Search.Prg');
+    public $presetVars = true;
 
     public function index() {
-        $this->set('posts', $this->Post->find('all'));
+
+        $this->Prg->commonProcess();
+
+        $this->paginate = array(
+            'conditions' => $this->Post->parseCriteria($this->passedArgs),
+        );
+
+
+        //$this->set('posts', $this->Post->find('all'));
+        $this->set('posts', $this->paginate());
     }
 
     public function view($id = null) {
@@ -95,4 +105,3 @@ class PostsController extends AppController {
 
 
 }
-

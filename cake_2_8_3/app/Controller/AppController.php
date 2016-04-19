@@ -49,6 +49,7 @@ class AppController extends Controller {
                     'passwordHasher' => 'Blowfish'
                 )
             ),
+
             'authorize' => array('Controller')
         ),
 	'DebugKit.Toolbar'
@@ -63,15 +64,10 @@ class AppController extends Controller {
         if (isset($user['role']) && $user['role'] === 'admin') {
             return true;
         }
- 
+
         // デフォルトは拒否
         return false;
-    }  
+    }
 
 
 }
-
-
-
-
-

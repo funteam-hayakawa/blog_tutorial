@@ -11,7 +11,12 @@
     <?php echo $this->Form->end('検索'); ?>
 </div>
 
+<?php echo $this->Html->link(
+    'カテゴリ別表示',
+    array('controller' => 'categories', 'action' => 'index')
+); ?>
 
+<br>
 
 <?php echo $this->Html->link(
     'Add Post',

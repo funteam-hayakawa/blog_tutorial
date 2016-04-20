@@ -1,10 +1,12 @@
 <?php
 
 
+
 class PostsController extends AppController {
     public $helpers = array('Html', 'Form', 'Flash');
     public $components = array('Flash', 'Search.Prg');
     public $presetVars = true;
+    var $uses = array('Post', 'Category');
 
     public function index() {
 
@@ -33,8 +35,10 @@ class PostsController extends AppController {
 
 
     public function add() {
+
         if ($this->request->is('post')) {
             $this->request->data['Post']['user_id'] = $this->Auth->user('id');
+            $this->request->data['Post']['category_id'] = $this->request->data['Post']['category'];
             $this->Post->create();
             if ($this->Post->save($this->request->data)) {
                 $this->Flash->success(__('Your post has been saved.'));
@@ -42,6 +46,10 @@ class PostsController extends AppController {
             }
             $this->Flash->error(__('Unable to add your post.'));
         }
+        $cat_list = $this->Category->find('list', array(
+                'fields' => array('Category.name')
+              ));
+        $this->set('categories', $cat_list);
     }
 
     public function edit($id = null) {
@@ -56,13 +64,19 @@ class PostsController extends AppController {
 
         if ($this->request->is(array('post', 'put'))) {
             $this->Post->id = $id;
+
+            $this->request->data['Post']['category_id'] = $this->request->data['Post']['category'];
+
             if ($this->Post->save($this->request->data)) {
                 $this->Flash->success(__('Your post has been updated.'));
                 return $this->redirect(array('action' => 'index'));
             }
             $this->Flash->error(__('Unable to update your post.'));
         }
-
+        $cat_list = $this->Category->find('list', array(
+                'fields' => array('Category.name')
+              ));
+        $this->set('categories', $cat_list);
         if (!$this->request->data) {
             $this->request->data = $post;
         }

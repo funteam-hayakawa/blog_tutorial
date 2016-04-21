@@ -4,8 +4,12 @@
 <?php
 echo $this->Form->create('Post', array('type' => 'file'));
 echo $this->Form->input('category', array(
-    //'options' => array('admin' => 'Admin', 'author' => 'Author')
-    'options' => $categories
+    'options' => $categories,
+    //'multiple'=> true,
+));
+echo $this->Form->input('tag', array(
+    'options' => $tags,
+    'multiple'=> true,
 ));
 echo $this->Form->input('title');
 echo $this->Form->input('body', array('rows' => '3'));

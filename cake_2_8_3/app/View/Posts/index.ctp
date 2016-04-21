@@ -2,10 +2,26 @@
 
 <h1>Blog posts</h1>
 
+
+
 <div>
     <?php echo $this->Form->create('Post', array('url'=>'index')); ?>
     <fieldset>
         <legend>検索</legend>
+
+
+        <?php
+        echo $this->Form->input('category', array(
+            'options' => $categories,
+            'empty'=>'未選択'
+        ));
+        echo $this->Form->input('tag', array(
+            'options' => $tags,
+            'multiple'=> true,
+            'empty'=>'未選択'
+        ));
+        ?>
+
         <?php echo $this->Form->input('title', array('label' => 'タイトル', 'empty' => true)); ?>
     </fieldset>
     <?php echo $this->Form->end('検索'); ?>
@@ -27,6 +43,8 @@
     <tr>
         <th>Id</th>
         <th>Title</th>
+        <th>Category</th>
+        <th>Tag</thj>
         <th>Action</th>
         <th>Created</th>
     </tr>
@@ -38,9 +56,18 @@
         <td><?php echo $post['Post']['id']; ?></td>
         <td>
             <?php echo $this->Html->link($post['Post']['title'],
-		array('controller' => 'posts', 'action' => 'view', $post['Post']['id'])); ?>
+		          array('controller' => 'posts', 'action' => 'view', $post['Post']['id'])); ?>
         </td>
-
+        <td>
+            <?php echo $this->Html->link($post['Category']['name'],
+		          array('controller' => 'categories', 'action' => 'view', $post['Category']['id'])); ?>
+        </td>
+        <td>
+          <?php foreach ($post['Tag'] as $tag): ?>
+            <?php echo $this->Html->link($tag['name'],
+              array('controller' => 'tags', 'action' => 'view', $tag['id'])); ?>
+          <?php endforeach; ?>
+        </td>
         <td>
             <?php
                 echo $this->Form->postLink(
@@ -70,3 +97,7 @@
     <?php endforeach; ?>
     <?php unset($post); ?>
 </table>
+
+<?php
+//echo "<pre>"; print_r($posts); echo "</pre>";
+?>

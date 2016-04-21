@@ -6,19 +6,30 @@ class PostsController extends AppController {
     public $helpers = array('Html', 'Form', 'Flash');
     public $components = array('Flash', 'Search.Prg');
     public $presetVars = true;
-    var $uses = array('Post', 'Category', 'Attachment');
+    var $uses = array('Post', 'Category', 'Tag');
 
     public function index() {
 
         $this->Prg->commonProcess();
+
+        var_dump($this->passedArgs);
+        //exit();
 
         $this->paginate = array(
             'conditions' => $this->Post->parseCriteria($this->passedArgs),
         );
 
 
-        $this->set('posts', $this->Post->find('all'));
-        //$this->set('posts', $this->paginate());
+        //$this->set('posts', $this->Post->find('all'));
+        $this->set('posts', $this->paginate());
+        $tag_list = $this->Tag->find('list', array(
+                'fields' => array('Tag.name')
+              ));
+        $this->set('tags', $tag_list);
+        $cat_list = $this->Category->find('list', array(
+                'fields' => array('Category.name')
+              ));
+        $this->set('categories', $cat_list);
     }
 
     public function view($id = null) {
@@ -39,9 +50,13 @@ class PostsController extends AppController {
         if ($this->request->is('post')) {
             $this->request->data['Post']['user_id'] = $this->Auth->user('id');
             $this->request->data['Post']['category_id'] = $this->request->data['Post']['category'];
+
+            $this->request->data['Tag'] = array('Tag' => $this->request->data['Post']['tag']);
+
             $this->Post->create();
-            /*var_dump($this->request->data);
-            exit();*/
+            //var_dump($this->request->data);
+            //exit();
+
             if ($this->Post->saveAll($this->request->data)) {
                 $this->Flash->success(__('Your post has been saved.'));
                 return $this->redirect(array('action' => 'index'));
@@ -51,7 +66,12 @@ class PostsController extends AppController {
         $cat_list = $this->Category->find('list', array(
                 'fields' => array('Category.name')
               ));
+        $tag_list = $this->Tag->find('list', array(
+                'fields' => array('Tag.name')
+              ));
+
         $this->set('categories', $cat_list);
+        $this->set('tags', $tag_list);
     }
 
     public function edit($id = null) {
@@ -69,6 +89,8 @@ class PostsController extends AppController {
 
             $this->request->data['Post']['category_id'] = $this->request->data['Post']['category'];
 
+            $this->request->data['Tag'] = array('Tag' => $this->request->data['Post']['tag']);
+
             if ($this->Post->saveAll($this->request->data)) {
                 $this->Flash->success(__('Your post has been updated.'));
                 return $this->redirect(array('action' => 'index'));
@@ -78,7 +100,11 @@ class PostsController extends AppController {
         $cat_list = $this->Category->find('list', array(
                 'fields' => array('Category.name')
               ));
+        $tag_list = $this->Tag->find('list', array(
+                'fields' => array('Tag.name')
+              ));
         $this->set('categories', $cat_list);
+        $this->set('tags', $tag_list);
         if (!$this->request->data) {
             $this->request->data = $post;
         }
@@ -111,14 +137,16 @@ class PostsController extends AppController {
             throw new NotFoundException(__('Invalid post'));
         }
 
+
         if ($this->request->is(array('post', 'put'))) {
             $this->Post->id = $id;
-
-            if ($this->Post->saveAll($this->request->data)) {
-                $this->Flash->success(__('Your post has been updated.'));
-                return $this->redirect(array('action' => 'index'));
+            if ($this->request->data['Image'][0]['attachment']['name']){
+              if ($this->Post->saveAll($this->request->data)) {
+                  $this->Flash->success(__('Your post has been updated.'));
+                  return $this->redirect(array('action' => 'index'));
+              }
+              $this->Flash->error(__('Unable to update your post.'));
             }
-            $this->Flash->error(__('Unable to update your post.'));
         }
 
         $this->set('post', $post);

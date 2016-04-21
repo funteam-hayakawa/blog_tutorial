@@ -10,5 +10,10 @@ echo $this->Form->input('category', array(
 echo $this->Form->input('title');
 echo $this->Form->input('body', array('rows' => '3'));
 echo $this->Form->input('id', array('type' => 'hidden'));
+
+echo $this->Form->input('Image.0.attachment', array('type' => 'file', 'label' => 'Image'));
+echo $this->Form->input('Image.0.model', array('type' => 'hidden', 'value' => 'Post'));
+echo $this->Form->input('Image.0.name', array('type' => 'hidden', 'value' => 'PostImage'));
+
 echo $this->Form->end('Save Post');
 ?>

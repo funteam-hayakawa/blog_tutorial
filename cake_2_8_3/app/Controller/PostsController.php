@@ -6,7 +6,7 @@ class PostsController extends AppController {
     public $helpers = array('Html', 'Form', 'Flash');
     public $components = array('Flash', 'Search.Prg');
     public $presetVars = true;
-    var $uses = array('Post', 'Category');
+    var $uses = array('Post', 'Category', 'Attachment');
 
     public function index() {
 
@@ -17,8 +17,8 @@ class PostsController extends AppController {
         );
 
 
-        //$this->set('posts', $this->Post->find('all'));
-        $this->set('posts', $this->paginate());
+        $this->set('posts', $this->Post->find('all'));
+        //$this->set('posts', $this->paginate());
     }
 
     public function view($id = null) {
@@ -40,7 +40,9 @@ class PostsController extends AppController {
             $this->request->data['Post']['user_id'] = $this->Auth->user('id');
             $this->request->data['Post']['category_id'] = $this->request->data['Post']['category'];
             $this->Post->create();
-            if ($this->Post->save($this->request->data)) {
+            /*var_dump($this->request->data);
+            exit();*/
+            if ($this->Post->saveAll($this->request->data)) {
                 $this->Flash->success(__('Your post has been saved.'));
                 return $this->redirect(array('action' => 'index'));
             }
@@ -67,7 +69,7 @@ class PostsController extends AppController {
 
             $this->request->data['Post']['category_id'] = $this->request->data['Post']['category'];
 
-            if ($this->Post->save($this->request->data)) {
+            if ($this->Post->saveAll($this->request->data)) {
                 $this->Flash->success(__('Your post has been updated.'));
                 return $this->redirect(array('action' => 'index'));
             }

@@ -19,5 +19,14 @@ class Post extends AppModel {
     public $filterArgs = array(
         'title' => array('type' => 'like'),
     );
-
+    public $hasMany = array(
+        'Image' => array(
+            'className' => 'Attachment',
+            'foreignKey' => 'foreign_key',
+            'conditions' => array(
+                'Image.model' => 'Post',
+            ),
+            'dependent' => true
+        ),
+    );
 }

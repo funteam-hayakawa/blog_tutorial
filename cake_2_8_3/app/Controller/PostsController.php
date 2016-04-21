@@ -87,7 +87,7 @@ class PostsController extends AppController {
         if ($this->request->is('get')) {
             //throw new MethodNotAllowedException();
             $this->redirect(array('action' => 'index'));
-	}
+	         }
 
         if ($this->Post->delete($id)) {
             $this->Flash->success(
@@ -101,7 +101,31 @@ class PostsController extends AppController {
 
         return $this->redirect(array('action' => 'index'));
     }
+    public function add_image($id = null) {
+        if (!$id) {
+            throw new NotFoundException(__('Invalid post'));
+        }
 
+        $post = $this->Post->findById($id);
+        if (!$post) {
+            throw new NotFoundException(__('Invalid post'));
+        }
+
+        if ($this->request->is(array('post', 'put'))) {
+            $this->Post->id = $id;
+
+            if ($this->Post->saveAll($this->request->data)) {
+                $this->Flash->success(__('Your post has been updated.'));
+                return $this->redirect(array('action' => 'index'));
+            }
+            $this->Flash->error(__('Unable to update your post.'));
+        }
+
+        $this->set('post', $post);
+        if (!$this->request->data) {
+            $this->request->data = $post;
+        }
+    }
     public function isAuthorized($user) {
         // 登録済ユーザーは投稿できる
         if ($this->action === 'add') {

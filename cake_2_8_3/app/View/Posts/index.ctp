@@ -56,6 +56,12 @@
                     array('action' => 'edit', $post['Post']['id'])
                 );
             ?>
+            <?php
+                echo $this->Html->link(
+                    'Add Image',
+                    array('action' => 'add_image', $post['Post']['id'])
+                );
+            ?>
         </td>
 
 

@@ -6,13 +6,16 @@ class PostsController extends AppController {
     public $helpers = array('Html', 'Form', 'Flash');
     public $components = array('Flash', 'Search.Prg');
     public $presetVars = true;
+
+
+
     var $uses = array('Post', 'Category', 'Tag');
 
     public function index() {
-
+        unset($this->Post->validate['title']);
         $this->Prg->commonProcess();
 
-        var_dump($this->passedArgs);
+        //var_dump($this->passedArgs);
         //exit();
 
         $this->paginate = array(

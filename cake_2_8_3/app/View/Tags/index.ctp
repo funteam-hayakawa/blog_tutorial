@@ -1,7 +1,7 @@
-<h1>User lists</h1>
 
 
-
+<div class="container">
+<h1>Tag lists</h1>
 <?php echo $this->Html->link(
     'Blog Index',
     array('controller' => 'posts', 'action' => 'index')
@@ -28,14 +28,14 @@
 <br>
 
 <?php echo $this->Html->link(
-    'Add Tags',
+    'Add Tag',
     array('controller' => 'tags', 'action' => 'add')
 ); ?>
 
 
 
 
-<table>
+<table class="table">
     <tr>
         <th>Tag Id</th>
         <th>TagName</th>
@@ -104,3 +104,5 @@
     <?php endforeach; ?>
     <?php unset($user); ?>
 </table>
+
+</div>

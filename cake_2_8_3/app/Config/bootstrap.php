@@ -110,4 +110,4 @@ CakeLog::config('error', array(
 	'file' => 'error',
 ));
 
-CakePlugin::load(array('DebugKit', 'Search', 'Upload'));
+CakePlugin::load(array('DebugKit', 'Search', 'Upload', 'TwitterBootstrap'));

@@ -36,7 +36,10 @@
           'Add Post',
           array('controller' => 'posts', 'action' => 'add')
       ); ?>
-
+      <?php echo $this->Html->link(
+          '郵便番号',
+          array('controller' => 'posts', 'action' => 'zip')
+      ); ?>
     </nav>
   </div>
 </div>

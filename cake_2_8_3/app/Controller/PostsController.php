@@ -52,9 +52,9 @@ class PostsController extends AppController {
 
         if ($this->request->is('post')) {
             $this->request->data['Post']['user_id'] = $this->Auth->user('id');
-            $this->request->data['Post']['category_id'] = $this->request->data['Post']['category'];
 
-            $this->request->data['Tag'] = array('Tag' => $this->request->data['Post']['tag']);
+            //var_dump($this->request->data);
+            //exit();
 
             $this->Post->create();
             //var_dump($this->request->data);
@@ -90,9 +90,9 @@ class PostsController extends AppController {
         if ($this->request->is(array('post', 'put'))) {
             $this->Post->id = $id;
 
-            $this->request->data['Post']['category_id'] = $this->request->data['Post']['category'];
-
-            $this->request->data['Tag'] = array('Tag' => $this->request->data['Post']['tag']);
+            //$this->request->data['Tag'] = array('Tag' => $this->request->data['Post']['tag']);
+            //var_dump($this->request->data);
+            //exit();
 
             if ($this->Post->saveAll($this->request->data)) {
                 $this->Flash->success(__('Your post has been updated.'));

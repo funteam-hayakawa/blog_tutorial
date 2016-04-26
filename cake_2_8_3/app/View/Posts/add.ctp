@@ -23,13 +23,13 @@
     <h1>Add Post</h1>
     <?php
     echo $this->Form->create('Post', array('type' => 'file'));
-    echo $this->Form->input('category', array(
+    echo $this->Form->input('Post.category_id', array(
         'options' => $categories,
         'empty'=>'未選択',
         'class' => 'selectpicker'
         //'multiple'=> true,
     ));
-    echo $this->Form->input('tag', array(
+    echo $this->Form->input('Tag.Tag', array(
         'options' => $tags,
         'multiple'=> true,
         'class' => 'selectpicker'

@@ -5,7 +5,7 @@ App::uses('AppController', 'Controller');
 class TagsController extends AppController {
 
     public function index() {
-        $this->Tag->recursive = 0;
+        $this->Tag->recursive = 1;
         //$this->set('categories', $this->paginate());
         $this->set('tags', $this->Tag->find('all'));
     }

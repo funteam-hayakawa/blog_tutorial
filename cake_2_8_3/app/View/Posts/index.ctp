@@ -1,8 +1,26 @@
 <!-- File: /app/View/Posts/index.ctp -->
-
+<style type="text/css">
+<!--
+  .dispn {
+    display : none;
+  }
+-->
+</style>
 <script type="text/javascript">
         $(window).on('load', function () {
             $('.selectpicker').selectpicker();
+        });
+        $(function(){
+          $('#hide_search').click(function(){
+              $('#search_div').addClass('dispn');
+              $('#hide_search').addClass('dispn');
+              $('#show_search').removeClass('dispn');
+          });
+          $('#show_search').click(function(){
+              $('#search_div').removeClass('dispn');
+              $('#show_search').addClass('dispn');
+              $('#hide_search').removeClass('dispn');
+          });
         });
 </script>
 
@@ -27,7 +45,9 @@
     <div class="blog-header">
         <h1 class="blog-title">Blog posts</h1>
     </div>
-    <div>
+    <input type="button" value="検索エリアを表示" class="btn btn-default dispn" id="show_search">
+    <input type="button" value="検索エリアを非表示" class="btn btn-default" id="hide_search">
+    <div id="search_div">
         <?php echo $this->Form->create('Post', array('url'=>'index',)); ?>
         <fieldset>
             <legend>検索</legend>
@@ -55,7 +75,6 @@
         </fieldset>
         <?php echo $this->Form->end(array('label' => '検索', 'class' => 'btn btn-default')); ?>
     </div>
-
 
 
 

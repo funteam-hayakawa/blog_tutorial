@@ -72,7 +72,7 @@
         </td>
         <td><?php echo $tag['Tag']['created']; ?></td>
     </tr>
-    <!--
+
     <?php foreach ($tag['Post'] as $post): ?>
     <tr>
       <td></td>
@@ -100,7 +100,7 @@
       <td><?php echo $post['created']; ?></td>
     </tr>
     <?php endforeach; ?>
-  -->
+
     <?php endforeach; ?>
     <?php unset($user); ?>
 </table>

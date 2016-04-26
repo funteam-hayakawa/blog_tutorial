@@ -1,4 +1,7 @@
 
+<?php echo $this->Html->css('lightbox'); ?>
+<?php echo $this->Html->script('lightbox'); ?>
+
 <div class="blog-masthead">
   <div class="container">
     <nav class="blog-nav">
@@ -29,12 +32,18 @@
                 <p class="blog-post-meta">Created: <?php echo $post['Post']['created']; ?></p>
 
                 <?php foreach ($post['Image'] as $image): ?>
+
+                  <a href=
+                    <?php
+                    echo '../../files/image/attachment/' . $image['dir'] . '/' . $image['attachment'];
+                    ?>
+                    rel="lightbox[group1]">
                   <img src=
                     <?php
                     echo '../../files/image/attachment/' . $image['dir'] . '/' . $image['attachment'];
                     ?>
                     width="256">
-
+                  </a>
                     <?php
                     //echo $this->Html->link('../files/image/attachment/' . $image['dir'] . '/' . $image['attachment']);
                     ?>

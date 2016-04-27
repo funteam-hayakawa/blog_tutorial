@@ -8,7 +8,10 @@ class Post extends AppModel {
         ),
         'body' => array(
             'rule' => 'notBlank'
-        )
+        ),
+        'Attachment.image' => array(
+            'rule' => 'notBlank'
+        ),
     );
 
     public function isOwnedBy($post, $user) {

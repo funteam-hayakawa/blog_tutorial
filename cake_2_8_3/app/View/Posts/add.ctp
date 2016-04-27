@@ -5,6 +5,20 @@
         $(window).on('load', function () {
             $('.selectpicker').selectpicker();
         });
+        $(function(){
+          var img_no = 0;
+          $('#add_image').click(function(){
+            var htm = '';
+            htm += '<div class="input file">';
+            htm += '<label for="image' + img_no +'Attachment">Image</label>';
+            htm += '<input type="file" name="data[Image][' + img_no + '][attachment]" id="Image' + img_no + 'Attachment">';
+            htm += '</div>';
+            htm += '<input type="hidden" name="data[Image][' + img_no + '][model]" value="Post" id="Image' + img_no + 'Model">';
+            htm += '<input type="hidden" name="data[Image][' + img_no + '][name]" value="PostImage" id="Image' + img_no + 'Name">';
+            $('#image_uploader').append(htm);
+            img_no++;
+          });
+        });
 </script>
 
 <div class="blog-masthead">
@@ -36,6 +50,10 @@
     ));
     echo $this->Form->input('title',array ('class' => 'form-control'));
     echo $this->Form->input('body', array('rows' => '3', 'class' => 'form-control'));
+    ?>
+    <input type="button" value="画像を追加" class="btn btn-default" id="add_image">
+    <div id='image_uploader'></div>
+    <?php
     /*
     echo $this->Form->input('Image.0.attachment', array('type' => 'file', 'label' => 'Image'));
     echo $this->Form->input('Image.0.model', array('type' => 'hidden', 'value' => 'Post'));

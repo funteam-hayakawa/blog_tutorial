@@ -37,8 +37,12 @@
           array('controller' => 'posts', 'action' => 'add')
       ); ?>
       <?php echo $this->Html->link(
-          '郵便番号',
+          '郵便番号ajaxzip3',
           array('controller' => 'posts', 'action' => 'zip')
+      ); ?>
+      <?php echo $this->Html->link(
+          '郵便番号ajax',
+          array('controller' => 'zipcods', 'action' => 'index')
       ); ?>
     </nav>
   </div>

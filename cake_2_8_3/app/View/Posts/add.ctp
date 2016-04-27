@@ -9,15 +9,33 @@
           var img_no = 0;
           $('#add_image').click(function(){
             var htm = '';
+            var id = 'Image' + img_no + 'Attachment';
             htm += '<div class="input file">';
             htm += '<label for="image' + img_no +'Attachment">Image</label>';
-            htm += '<input type="file" name="data[Image][' + img_no + '][attachment]" id="Image' + img_no + 'Attachment">';
+            htm += '<input style="display:none" class="image_uploader_input" type="file" name="data[Image][' + img_no + '][attachment]" id="' + id + '">';
             htm += '</div>';
             htm += '<input type="hidden" name="data[Image][' + img_no + '][model]" value="Post" id="Image' + img_no + 'Model">';
             htm += '<input type="hidden" name="data[Image][' + img_no + '][name]" value="PostImage" id="Image' + img_no + 'Name">';
+
+            htm += '<div class="input-append">';
+            htm += '<input required="required" id="photoCover' + id + '" class="required input-large" type="text" readonly="readonly" style="width:480px;" >';
+            htm += '<a class="btn btn-default file_btn" input_id="' + id +'")>画像を選択</a>';
+            htm += '</div>';
+
             $('#image_uploader').append(htm);
             img_no++;
           });
+          $('#image_uploader').on('click', ".file_btn", function(e){
+            console.log($(e.target).attr('input_id'));
+            var id = $(e.target).attr('input_id');
+            $('#' + id).click();
+          });
+          $('#image_uploader').on('change', ".image_uploader_input", function(e){
+              var id = $(e.target).attr('id');
+              $('#photoCover' + id).val($(this).val());
+          });
+
+
         });
 </script>
 

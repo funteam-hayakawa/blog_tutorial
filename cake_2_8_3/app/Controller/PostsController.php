@@ -53,6 +53,16 @@ class PostsController extends AppController {
         if ($this->request->is('post')) {
             $this->request->data['Post']['user_id'] = $this->Auth->user('id');
 
+            $ct = count($this->request->data['Image']);
+
+            /* ファイル選択されていない部分をスルーする */
+            for ($i = 0 ; $i < $ct ; $i ++){
+              if(!$this->request->data['Image'][$i]['attachment']['name']){
+                  //var_dump($this->request->data['Image'][$i]);
+                  unset($this->request->data['Image'][$i]);
+              }
+            }
+
             //var_dump($this->request->data);
             //exit();
 

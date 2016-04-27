@@ -46,8 +46,8 @@
                    }else{
                        var htm='';
                        $('#addr').addClass("dispn");
-
-                       htm += '<select id="addr_selector" class="selectpicker">';
+                       $('#addr').val("");
+                       htm += '<select data-width="480px" id="addr_selector" class="selectpicker">';
                        htm += '<option id=0">以下から選択してください</option>"';
                        $.each(obj, function(key, value) {
                           var addr = value.Zipcod.pref;
@@ -88,9 +88,9 @@
 
 <hr>
 <label>zipcode</label>
-<input label="zipcode" empty="1" class="form-control" maxlength="8" type="text" value="" id="zipcode">
+<input style="width:480px;"　label="zipcode" empty="1" class="form-control" maxlength="8" type="text" value="" id="zipcode">
 <input type="button" value="郵便番号検索" class="btn btn-default" id="zip_search">
-<input label="zipcode" empty="1" class="form-control" maxlength="8" type="text" value="" id="addr">
+<input style="width:480px;"　label="zipcode" empty="1" class="form-control" maxlength="8" type="text" value="" id="addr">
 <div id="addr_selector_div"><div>
 
 

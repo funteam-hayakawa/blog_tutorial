@@ -33,12 +33,24 @@
 
     echo $this->Form->input('id', array('type' => 'hidden'));
 
-    echo $this->Form->input('Image.0.attachment', array('type' => 'file', 'label' => 'Image'));
+    echo $this->Form->input('Image.0.attachment', array('type' => 'file', 'label' => 'Image',
+      'style' => "display:none"));
     echo $this->Form->input('Image.0.model', array('type' => 'hidden', 'value' => 'Post'));
     echo $this->Form->input('Image.0.name', array('type' => 'hidden', 'value' => 'PostImage'));
+    ?>
+    <div class="input-append">
+    <input id="photoCover" class="input-large" type="text" readonly="readonly" style="width:480px;" >
+    <a class="btn btn-default" onclick="$('input[id=Image0Attachment]').click();">画像を選択</a>
+    </div>
 
+    <?php
     echo $this->Form->end(array('label' => 'Save post', 'class' => 'btn btn-default'));
     ?>
+    <script type="text/javascript">
+    $('input[id=Image0Attachment]').change(function() {
+    $('#photoCover').val($(this).val());
+    });
+    </script>
 
     <p><?php echo h($post['Post']['body']); ?></p>
 </div>

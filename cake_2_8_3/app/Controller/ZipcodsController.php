@@ -21,8 +21,8 @@ class ZipcodsController extends AppController {
         $addr = $this->Zipcod->find('all', array(
           'conditions' => array('Zipcod.zipcode' => $this->passedArgs[0])
         ));
-        echo (json_encode($addr,JSON_UNESCAPED_UNICODE));
-
+        //echo (json_encode($addr,JSON_UNESCAPED_UNICODE));
+        echo (json_encode($addr));
         exit;
       }
     }

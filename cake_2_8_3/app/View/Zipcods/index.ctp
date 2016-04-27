@@ -84,12 +84,7 @@
 </div>
 
 <div class="container">
-<h1>Zipcode</h1>
-<?php echo $this->Html->link(
-    'Blog Index',
-    array('controller' => 'posts', 'action' => 'index')
-); ?>
-<br>
+
 
 <hr>
 <label>zipcode</label>

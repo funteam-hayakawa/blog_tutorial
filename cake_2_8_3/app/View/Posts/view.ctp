@@ -10,14 +10,35 @@
    .dispn {
      display : none;
    }
+   .hide {
+     Visibility : hidden;
+   }
    .popup-item{
       position:fixed;     /* 位置の固定 */
       top: 50%;           /* 表示位置(真ん中に表示) */
       left: 50%;          /* 表示位置(真ん中に表示) */
-      margin: -25%;          /* 余白の削除 */
+      margin: -25%;
       padding: 0;         /* 余白の削除 */
       z-index:1001;       /* 要素のz座標 */
     }
+    .btn-left{
+       position:fixed;     /* 位置の固定 */
+       top: 50%;           /* 表示位置(真ん中に表示) */
+       left: 50%;          /* 表示位置(真ん中に表示) */
+       margin-left: -25%;
+       padding: 0;         /* 余白の削除 */
+       z-index:1002;       /* 要素のz座標 */
+       opacity : 0.5;
+     }
+     .btn-right{
+        position:fixed;     /* 位置の固定 */
+        top: 50%;           /* 表示位置(真ん中に表示) */
+        right: 50%;          /* 表示位置(真ん中に表示) */
+        margin-right: -25%;
+        padding: 0;         /* 余白の削除 */
+        z-index:1002;       /* 要素のz座標 */
+        opacity : 0.5;
+      }
  -->
  </style>
 <script type="text/javascript">
@@ -38,13 +59,23 @@
             $('#popup_item').hide();
             $('#popup_image').html(htm);
             $('#popup_item').fadeIn(500);
+            if (curr_idx == 0){
+              $('#prev').addClass('hide');
+            } else {
+              $('#prev').removeClass('hide');
+            }
+            if (curr_idx == img.length-1){
+              $('#next').addClass('hide');
+            } else {
+              $('#next').removeClass('hide');
+            }
           };
 
           $('.post_image').click(function(e){
              //console.log($(e.target).attr('src'));
              var img_url = $(e.target).attr('src');
-             setimage(img_url);
              curr_idx = img_idx[img_url];
+             setimage(img_url);
           });
           $('#close').click(function(){
               $('#popup_item').fadeOut();
@@ -113,11 +144,11 @@
                       <input type="button" value="閉じる" class="btn btn-default" id="close"><br>
                     </div>
                     <div style="clear:both"></div>
-                    <div style="display: table-cell;">
+                    <div class="btn-left">
                       <input type="button" value="前" class="btn btn-default" id="prev">
                     </div>
-                    <div id='popup_image' style="display: table-cell;"></div>
-                    <div style="display: table-cell;">
+                    <div id='popup_image'></div>
+                    <div class="btn-right">
                       <input type="button" value="次" class="btn btn-default" id="next">
                     </div>
                 </div>

@@ -12,7 +12,7 @@
             $('.selectpicker').selectpicker();
         });
         $(function(){
-          $('#zipcode').val('452-0961');
+          //$('#zipcode').val('452-0961');
           function isPostcode( postcode )
           {
             if( (postcode.match(/^\d{3}-?\d{4}$/)) ){

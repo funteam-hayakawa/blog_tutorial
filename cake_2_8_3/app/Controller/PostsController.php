@@ -54,11 +54,13 @@ class PostsController extends AppController {
             $this->request->data['Post']['user_id'] = $this->Auth->user('id');
 
             /* ファイル選択されていない部分をスルーする */
-            $ct = count($this->request->data['Image']);
-            for ($i = 0 ; $i < $ct ; $i ++){
-              if(!$this->request->data['Image'][$i]['attachment']['name']){
-                  //var_dump($this->request->data['Image'][$i]);
-                  unset($this->request->data['Image'][$i]);
+            if (isset($this->request->data['Image'])){
+              $ct = count($this->request->data['Image']);
+              for ($i = 0 ; $i < $ct ; $i ++){
+                if(!$this->request->data['Image'][$i]['attachment']['name']){
+                    //var_dump($this->request->data['Image'][$i]);
+                    unset($this->request->data['Image'][$i]);
+                }
               }
             }
 
@@ -99,11 +101,13 @@ class PostsController extends AppController {
         if ($this->request->is(array('post', 'put'))) {
             $this->Post->id = $id;
             /* ファイル選択されていない部分をスルーする */
-            $ct = count($this->request->data['Image']);
-            for ($i = 0 ; $i < $ct ; $i ++){
-              if(!$this->request->data['Image'][$i]['attachment']['name']){
-                  //var_dump($this->request->data['Image'][$i]);
-                  unset($this->request->data['Image'][$i]);
+            if (isset($this->request->data['Image'])){
+              $ct = count($this->request->data['Image']);
+              for ($i = 0 ; $i < $ct ; $i ++){
+                if(!$this->request->data['Image'][$i]['attachment']['name']){
+                    //var_dump($this->request->data['Image'][$i]);
+                    unset($this->request->data['Image'][$i]);
+                }
               }
             }
             //$this->request->data['Tag'] = array('Tag' => $this->request->data['Post']['tag']);

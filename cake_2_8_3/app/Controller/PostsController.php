@@ -9,7 +9,7 @@ class PostsController extends AppController {
 
 
 
-    var $uses = array('Post', 'Category', 'Tag');
+    var $uses = array('Post', 'Category', 'Tag', 'Attachment');
 
     public function index() {
         unset($this->Post->validate['title']);
@@ -53,9 +53,8 @@ class PostsController extends AppController {
         if ($this->request->is('post')) {
             $this->request->data['Post']['user_id'] = $this->Auth->user('id');
 
-            $ct = count($this->request->data['Image']);
-
             /* ファイル選択されていない部分をスルーする */
+            $ct = count($this->request->data['Image']);
             for ($i = 0 ; $i < $ct ; $i ++){
               if(!$this->request->data['Image'][$i]['attachment']['name']){
                   //var_dump($this->request->data['Image'][$i]);
@@ -99,7 +98,14 @@ class PostsController extends AppController {
 
         if ($this->request->is(array('post', 'put'))) {
             $this->Post->id = $id;
-
+            /* ファイル選択されていない部分をスルーする */
+            $ct = count($this->request->data['Image']);
+            for ($i = 0 ; $i < $ct ; $i ++){
+              if(!$this->request->data['Image'][$i]['attachment']['name']){
+                  //var_dump($this->request->data['Image'][$i]);
+                  unset($this->request->data['Image'][$i]);
+              }
+            }
             //$this->request->data['Tag'] = array('Tag' => $this->request->data['Post']['tag']);
             //var_dump($this->request->data);
             //exit();
@@ -121,12 +127,13 @@ class PostsController extends AppController {
         if (!$this->request->data) {
             $this->request->data = $post;
         }
+        $this->set('post', $post);
     }
     public function delete($id) {
         if ($this->request->is('get')) {
             //throw new MethodNotAllowedException();
             $this->redirect(array('action' => 'index'));
-	         }
+	      }
 
         if ($this->Post->delete($id)) {
             $this->Flash->success(
@@ -137,9 +144,38 @@ class PostsController extends AppController {
                 __('The post with id: %s could not be deleted.', h($id))
             );
         }
-
         return $this->redirect(array('action' => 'index'));
     }
+    public function deleteimage($post_id, $img_id) {
+        if ($this->request->is('get')) {
+            //throw new MethodNotAllowedException();
+            $post = $this->Post->findById($post_id);
+            if (!$post) {
+                throw new NotFoundException(__('Invalid post'));
+            }
+            $this->redirect(array('action' => 'edit/' . $post_id));
+	      }
+        $post = $this->Post->findById($post_id);
+        if (!$post) {
+            throw new NotFoundException(__('Invalid post'));
+        }
+        $image = $this->Attachment->findById($img_id);
+        if (!$post) {
+            throw new NotFoundException(__('Invalid image'));
+        }
+
+        if ($this->Attachment->delete($img_id)) {
+            $this->Flash->success(
+                __('The image with id: %s has been deleted.', h($img_id))
+            );
+        } else {
+            $this->Flash->error(
+                __('The image with id: %s could not be deleted.', h($img_id))
+            );
+        }
+        return $this->redirect(array('action' => 'edit/' . $post_id));
+    }
+
     public function add_image($id = null) {
         if (!$id) {
             throw new NotFoundException(__('Invalid post'));

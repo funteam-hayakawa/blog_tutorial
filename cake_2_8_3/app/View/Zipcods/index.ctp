@@ -8,9 +8,6 @@
 
 <script type="text/javascript">
 
-        $(window).on('load', function () {
-            $('.selectpicker').selectpicker();
-        });
         $(function(){
           //$('#zipcode').val('452-0961');
           function isPostcode( postcode )

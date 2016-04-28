@@ -15,11 +15,8 @@ class ZipcodsController extends AppController {
     public function zipsearch() {
       if($this->request->is('ajax')) {
 
-        //var_dump($this->passedArgs[0]);
-        //exit();
-
         $addr = $this->Zipcod->find('all', array(
-          'conditions' => array('Zipcod.zipcode' => $this->passedArgs[0])
+          'conditions' => array('Zipcod.zipcode' => $this->request->data['zipcode'])
         ));
         //echo (json_encode($addr,JSON_UNESCAPED_UNICODE));
         echo (json_encode($addr));

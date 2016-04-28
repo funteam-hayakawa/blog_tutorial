@@ -12,7 +12,7 @@
             $('.selectpicker').selectpicker();
         });
         $(function(){
-          //$('#zipcode').val('452-0961');
+          $('#zipcode').val('452-0961');
           function isPostcode( postcode )
           {
             if( (postcode.match(/^\d{3}-?\d{4}$/)) ){
@@ -30,7 +30,8 @@
               zip = zip.replace( '-' , "" ) ;
               $.ajax({
                  type: "POST",
-                 url: "http://blog.dev/cake_2_8_3/zipcods/zipsearch/" + zip,
+                 url: "http://blog.dev/cake_2_8_3/zipcods/zipsearch/",
+                 data: {'zipcode' : zip},
                  success: function(msg){
                    var obj = JSON.parse(msg)
                    console.log(obj);

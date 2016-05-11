@@ -46,13 +46,6 @@
         var img_idx = {};
         var curr_idx;
         $(function(){
-          var i;
-          for(i = 0 ; i < $('.post_image').length ; i++){
-              console.log($($('.post_image')[i]).attr('src'));
-              var tmp = $($('.post_image')[i]).attr('src');
-              img[i] = tmp;
-              img_idx[tmp] = i;
-          }
           var setimage = function(img_url){
             var htm = '';
             htm += '<img src="' + img_url + '" width="' + Math.floor(window.innerWidth/2) + 'px"/>';
@@ -73,6 +66,16 @@
 
           $('.post_image').click(function(e){
              //console.log($(e.target).attr('src'));
+             var i;
+             var img_grp = $(e.target).attr('img_grp');
+             img = [];
+             img_idx = {};
+             for(i = 0 ; i < $('.post_image[img_grp="' + img_grp + '"]').length ; i++){
+                 //console.log($($('.post_image[img_grp="' + img_grp + '"]')[i]).attr('src'));
+                 var tmp = $($('.post_image[img_grp="' + img_grp + '"]')[i]).attr('src');
+                 img[i] = tmp;
+                 img_idx[tmp] = i;
+             }
              var img_url = $(e.target).attr('src');
              curr_idx = img_idx[img_url];
              setimage(img_url);
@@ -133,7 +136,7 @@
                       <?php
                       echo '../../files/image/attachment/' . $image['dir'] . '/' . $image['attachment'];
                       ?>
-                      width="256" class="post_image">
+                      width="256" class="post_image" img_grp="imggrp1">
                     <?php
                     //echo $this->Html->link('../files/image/attachment/' . $image['dir'] . '/' . $image['attachment']);
                     ?>

@@ -23,4 +23,9 @@ class ZipcodsController extends AppController {
         exit;
       }
     }
+    public function beforeFilter() {
+        parent::beforeFilter();
+        //ログインしないと郵便番号検索機能に繋がらないのを回避
+        $this->Auth->allow('zipsearch');
+    }
 }

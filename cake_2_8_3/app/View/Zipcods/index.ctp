@@ -86,9 +86,9 @@
 
 <hr>
 <label>zipcode</label>
-<input style="width:480px;"　label="zipcode" empty="1" class="form-control" maxlength="8" type="text" value="" id="zipcode">
+<input style="width:480px;" empty="1" class="form-control" maxlength="8" type="text" value="" id="zipcode">
 <input type="button" value="郵便番号検索" class="btn btn-default" id="zip_search">
-<input style="width:480px;"　label="zipcode" empty="1" class="form-control" maxlength="8" type="text" value="" id="addr">
+<input style="width:480px;" empty="1" class="form-control" maxlength="128" type="text" value="" id="addr">
 <div id="addr_selector_div"><div>
 
 

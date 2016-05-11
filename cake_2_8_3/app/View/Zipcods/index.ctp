@@ -91,5 +91,4 @@
 <input style="width:480px;" empty="1" class="form-control" maxlength="128" type="text" value="" id="addr">
 <div id="addr_selector_div"><div>
 
-
 </div>
